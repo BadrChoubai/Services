@@ -1,9 +1,9 @@
-﻿FROM mcr.microsoft.com/dotnet/sdk:8.0 as base
+﻿FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine as base
 WORKDIR /app
 EXPOSE 8081
 EXPOSE 8080
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine as build
 WORKDIR /src
 COPY ["./Service.csproj", "."]
 RUN dotnet restore "./Service.csproj"
