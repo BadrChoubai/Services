@@ -19,20 +19,20 @@ dotnet run
 ### Build the Container Image
 
 ```bash
-docker build -t user-service -f Dockerfile
+docker build -t $USER-user-service .
 ```
 
 ### Run the Container Image
 
 ```bash
-docker run user-service 
+docker run $USER-user-service 
 ```
 
 ## Available Routes
 
 | Method | Path      |             URL              |
 |:------:|:----------|:----------------------------:|
-|  GET   | `/health` | http://localhost:8080/health |
+|  GET   | `/health` | http://127.0.0.1:8080/health |
 
 
 ### Test 
