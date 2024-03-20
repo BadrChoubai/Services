@@ -30,7 +30,7 @@ docker push localhost:5000/$USER/user-service
 ### Run the Container Image
 
 ```bash
-docker run user-service 
+docker run -p 8080:80 localhost:5000/$USER/user-service
 ```
 
 ## Available Routes
