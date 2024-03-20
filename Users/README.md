@@ -16,16 +16,21 @@ dotnet run
 
 ## Docker
 
-### Build the Container Image
+> Before you can start to build the container image locally, it is recommended to setup a Docker registry locally. Instructions
+can be found in the [Services-infrastructure](https://github.com/BadrChoubai/Services-infrastructure) Repository.
+
+### Build and Push the Container Image to your Local Registry
 
 ```bash
-docker build -t $USER-user-service .
+docker build -t user-service .
+docker tag user-service localhost:5000/$USER/user-service
+docker push localhost:5000/$USER/user-service
 ```
 
 ### Run the Container Image
 
 ```bash
-docker run $USER-user-service 
+docker run user-service 
 ```
 
 ## Available Routes
