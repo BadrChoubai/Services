@@ -1,7 +1,7 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine as base
 WORKDIR /app
-EXPOSE 8081
-EXPOSE 8080
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine as build
 WORKDIR /src
@@ -16,6 +16,7 @@ RUN dotnet publish "Service.csproj" -c Release -o /app/publish /p:UseAppHost=fal
 
 FROM base as final
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+ENV ASPNETCORE_URLS="http://*:80"
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Service.dll"]
