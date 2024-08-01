@@ -27,9 +27,7 @@ public static class Program
     {
         app.MapHealthChecks("/health");
 
-
         return app;
     }
 
 }
-

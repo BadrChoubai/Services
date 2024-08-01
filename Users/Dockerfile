@@ -1,6 +1,7 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine as base
 WORKDIR /app
 EXPOSE 80
+# Can't use this port in ASPNETCORE_URLS with TLS setup
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine as build
