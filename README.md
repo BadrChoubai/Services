@@ -12,3 +12,5 @@ This repository contains simple C#/.NET APIs exposing healthcheck endpoints as a
 |              | https://localhost:8081 |    N/A     |
 | Locations    | http://localhost:8082  |    N/A     |
 |              | https://localhost:8083 |    N/A     |
+| Events       | http://localhost:8084  |    N/A     |
+|              | https://localhost:8085 |    N/A     |
