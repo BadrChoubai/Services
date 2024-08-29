@@ -8,7 +8,7 @@ export default async ({app}: { app: express.Application }) => {
         res.send("healthy").status(200).end();
     });
     app.head('/health', (req, res) => {
-        res.send("healthy").status(200).end();
+        res.status(200).end();
     });
 
 
