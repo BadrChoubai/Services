@@ -1,6 +1,6 @@
 # Services
 
-This repository contains simple C#/.NET APIs exposing healthcheck endpoints as a proof-of-concept for showcasing the use of Apache APISIX.
+This repository contains three simple APIs exposing healthcheck endpoints as a proof-of-concept for showcasing the use of Apache APISIX.
 
 > [Services-infrastructure](https://github.com/BadrChoubai/Services-infrastructure) is the sister repository for the code handling that piece of the project.
 
