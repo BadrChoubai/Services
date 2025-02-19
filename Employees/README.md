@@ -32,8 +32,6 @@ To run the application locally:
 make run
 ```
 
-You will be prompted to select an application binary to execute.
-
 ### Clean Build Artifacts
 
 To remove build artifacts:
