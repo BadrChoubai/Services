@@ -62,13 +62,7 @@ lint: # @HELP runs golangci-lint linters
 
 run: # @HELP select and run a single application
 run:
-	@echo "$(BINS)"
-	@read -p "Select an application to run: " selection; \
-	if echo "$(BINS)" | grep -wq $$selection; then \
-	    $(PWD)/build/scripts/run-locally.sh $$selection \
-	else \
-	  printf  "application: \"%s\", does not exist.\n" $$selection; \
-	fi
+	$(PWD)/build/scripts/run-locally.sh $(BIN)
 
 SHELL := /usr/bin/env bash -o errexit -o pipefail
 .DEFAULT_GOAL = build
