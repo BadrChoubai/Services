@@ -4,6 +4,7 @@ ARCH := $(if $(GOARCH),$(GOARCH),$(shell GOTOOLCHAIN=local go env GOARCH))
 
 GO_VERSION := 1.23
 CONTAINER_IMAGE := golang:$(GO_VERSION)-alpine
+# Version strategy should be using git tags, simplified for now
 VERSION ?= 1.0
 TAG := $(VERSION)__$(OS)_$(ARCH)
 
