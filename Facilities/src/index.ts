@@ -3,7 +3,7 @@ import type { Application } from "express";
 import * as http from "node:http";
 
 async function main() {
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 8082;
   let server: http.Server;
 
   try {

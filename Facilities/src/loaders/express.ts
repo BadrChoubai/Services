@@ -13,5 +13,5 @@ export default async (app: Application): Promise<void> => {
   app.use(express.json()); // JSON Body Parser
 
   app.use("/health", heartbeat);
-  app.use("/api", router);
+  app.use("/", router);
 };
