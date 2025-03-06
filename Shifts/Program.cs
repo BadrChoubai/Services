@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.AspNetCore.Mvc;
 
 using Shifts;
 using Shifts.Model;
@@ -54,4 +53,3 @@ static void SeedData(IHost app)
     var service = scope?.ServiceProvider.GetService<DataSeeder>();
     service?.Seed();
 }
-
