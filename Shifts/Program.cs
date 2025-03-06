@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.HttpLogging;
 
 using Shifts;
 using Shifts.Model;
+using Shifts.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.AddServiceDefaults();
 builder.Services.AddTransient<DataSeeder>();
 
 var connectionString = builder.Configuration.GetConnectionString("DbConnectionString") ?? "Data Source=.db/Shifts.db";
+builder.Services.AddScoped<IDataRepository, DataRepository>();
 builder.Services.AddSqlite<ShiftsDbContext>(connectionString);
 
 // Configure Open API

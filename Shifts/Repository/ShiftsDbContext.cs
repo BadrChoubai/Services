@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Shifts.Model
+using Shifts.Model;
+
+namespace Shifts.Repository
 {
     public class ShiftsDbContext : DbContext
     {
