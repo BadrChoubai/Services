@@ -1,12 +1,13 @@
-namespace Shifts.Model
+using Shifts.Model;
+using Shifts.Repository;
+
+namespace Shifts
 {
     public class DataSeeder(ShiftsDbContext context)
     {
-        private readonly ShiftsDbContext _context = context;
-
         public void Seed()
         {
-            if (_context.Shifts.Any())
+            if (context.Shifts.Any())
             {
                 return;
             }
@@ -35,8 +36,8 @@ namespace Shifts.Model
                 }
             };
 
-            _context.Shifts.AddRange(shifts);
-            _context.SaveChanges();
+            context.Shifts.AddRange(shifts);
+            context.SaveChanges();
         }
     }
 }
