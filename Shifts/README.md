@@ -21,8 +21,12 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 Once, that's been done we can run our initial database migration.
 
 ```sh
-dotnet ef migrations add <name_of_file>
+dotnet ef migrations add Initial 
 dotnet ef database update
+```
+
+```sh
+dotnet ef 
 ```
 
 Initially there will be no data in the database so we'll want to seed it.

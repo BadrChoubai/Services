@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.HttpLogging;
 
 using Shifts;
-using Shifts.Model;
+using Shifts.Extensions;
 using Shifts.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.AddServiceDefaults();
 
 builder.Services.AddTransient<DataSeeder>();
 
@@ -14,10 +12,16 @@ var connectionString = builder.Configuration.GetConnectionString("DbConnectionSt
 builder.Services.AddScoped<IDataRepository, DataRepository>();
 builder.Services.AddSqlite<ShiftsDbContext>(connectionString);
 
-// Configure Open API
-builder.Services.AddOpenApi();
+// Configure Rate Limiting
 builder.Services.AddRateLimiting();
 
+// Configure Documentation
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi();
+
+// Configure Logging and Monitoring
+builder.Services.AddHealthChecks();
 builder.Services.AddHttpLogging(o =>
 {
     if (builder.Environment.IsDevelopment())
@@ -30,28 +34,27 @@ builder.Services.AddHttpLogging(o =>
 var app = builder.Build();
 
 app.UseHttpLogging();
+app.UseHealthChecks("/health");
 app.UseRateLimiter();
 
-app.MapOpenApi();
-app.MapDefaultEndpoints();
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi("/spec.json");
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
+}
+
+// Setup application endpoints
+app.MapShiftsApi();
 
 if (args.Length == 1 && args[0].Equals("seed", StringComparison.CurrentCultureIgnoreCase))
-    SeedData(app);
-
-
-app.Map("/", () => Results.Redirect("/openapi/v1.json"));
-
-Endpoints.MapShiftsApi(app);
+{
+    app.SeedData();
+    return;
+}
 
 app.Run();
-return;
-
-//Seed Data
-static void SeedData(IHost app)
-{
-    var scopedFactory = app.Services.GetService<IServiceScopeFactory>();
-
-    using var scope = scopedFactory?.CreateScope();
-    var service = scope?.ServiceProvider.GetService<DataSeeder>();
-    service?.Seed();
-}

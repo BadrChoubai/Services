@@ -1,3 +1,4 @@
+using Shifts.Extensions;
 using Shifts.Repository;
 
 namespace Shifts;
@@ -8,6 +9,7 @@ internal static class Endpoints
         this IEndpointRouteBuilder routes)
     {
         var group = routes.MapGroup("/shifts");
+        group.RequirePerUserRateLimit();
 
         group.WithTags("Shifts");
         group.WithOpenApi();
