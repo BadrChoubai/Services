@@ -1,4 +1,4 @@
-# Shifts 
+# Shifts
 
 This is a simple C# API demo using .NET 9.0 and Entity Framework.
 
@@ -25,10 +25,10 @@ dotnet ef migrations add <name_of_file>
 dotnet ef database update
 ```
 
-Initially there will be no data in the database so we'll want to seed it. 
+Initially there will be no data in the database so we'll want to seed it.
 
-Running `dotnet run` for the first time with the argument `seed` will run a utility script
-called by `Program.cs`.
+The `Program.cs` will look for an argument `seed`, and run a function if it's passed that adds a single entry to our
+database for demo purposes.
 
 ```sh
 dotnet run [seed]
