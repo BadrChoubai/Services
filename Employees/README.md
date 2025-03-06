@@ -71,5 +71,3 @@ go-api-project/
 ├── Dockerfile.in     # Docker template
 └── .env              # Environment variables
 ```
-
-
