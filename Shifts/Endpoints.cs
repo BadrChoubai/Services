@@ -1,5 +1,5 @@
 using Shifts.Extensions;
-using Shifts.Repository;
+using Shifts.Service;
 
 namespace Shifts;
 
@@ -14,7 +14,7 @@ internal static class Endpoints
         group.WithTags("Shifts");
         group.WithOpenApi();
 
-        group.MapGet("/", async (IDataRepository repository) => await repository.GetShifts());
-        group.MapGet("/{id:guid}", async (IDataRepository repository, Guid id) => await repository.GetShift(id));
+        group.MapGet("/", async (IApiService service) => await service.GetAll());
+        group.MapGet("/{id:guid}", async (IApiService service, Guid id) => await service.GetShift(id));
     }
 }
