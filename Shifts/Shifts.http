@@ -1,4 +1,4 @@
-@Shifts_HostAddress = http://localhost:5168
+@Shifts_HostAddress = http://localhost:8086
 
 GET {{Shifts_HostAddress}}/shifts/
 Accept: application/json
