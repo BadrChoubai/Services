@@ -5,4 +5,3 @@ public enum FacilityType
     SortCenter,
     DistributionCenter,
 }
-

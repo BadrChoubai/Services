@@ -4,23 +4,27 @@ using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Options;
 
+using Shifts.Service;
+
+using SQLitePCL;
+
 namespace Shifts.Extensions
 {
     public static class RateLimitingExtensions
     {
         private const string Policy = "PerUserRatelimit";
 
-        public static IServiceCollection AddRateLimiting(this IServiceCollection services)
+        public static void AddRateLimiting(this IServiceCollection services)
         {
             services.AddRateLimiter();
 
             services.AddOptions<TokenBucketRateLimiterOptions>()
                 .Configure(options =>
                 {
-                    options.ReplenishmentPeriod = TimeSpan.FromSeconds(10);
+                    options.ReplenishmentPeriod = TimeSpan.FromSeconds(180);
                     options.AutoReplenishment = true;
-                    options.TokenLimit = 100;
-                    options.TokensPerPeriod = 100;
+                    options.TokenLimit = 10;
+                    options.TokensPerPeriod = 10;
                     options.QueueLimit = 100;
                 }).BindConfiguration("RateLimiting");
 
@@ -33,17 +37,16 @@ namespace Shifts.Extensions
                     options.AddPolicy(Policy, context =>
                     {
                         var username = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                        Console.WriteLine(username);
                         return RateLimitPartition.GetTokenBucketLimiter(username,
                             _ => perUserRateLimiterOptions.CurrentValue);
                     });
                 });
-
-            return services;
         }
 
-        public static IEndpointConventionBuilder RequirePerUserRateLimit(this IEndpointConventionBuilder builder)
+        public static void RequirePerUserRateLimit(this IEndpointConventionBuilder builder)
         {
-            return builder.RequireRateLimiting(Policy);
+            builder.RequireRateLimiting(Policy);
         }
     }
 }
