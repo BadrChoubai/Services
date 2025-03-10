@@ -1,6 +1,6 @@
-using Shifts.Model;
+using Shifts.Api.Model;
 
-namespace Shifts.Service;
+namespace Shifts.Api.Service;
 
 public interface IApiService
 {

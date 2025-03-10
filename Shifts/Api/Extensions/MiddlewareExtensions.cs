@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.HttpLogging;
 
-namespace Shifts.Extensions;
+namespace Shifts.Api.Extensions;
 
 public static class MiddlewareExtensions
 {

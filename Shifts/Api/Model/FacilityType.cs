@@ -1,4 +1,4 @@
-namespace Shifts.Model;
+namespace Shifts.Api.Model;
 
 public enum FacilityType
 {

@@ -1,5 +1,6 @@
 using Shifts;
-using Shifts.Extensions;
+using Shifts.Api;
+using Shifts.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;

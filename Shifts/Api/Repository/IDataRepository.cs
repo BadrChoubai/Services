@@ -1,6 +1,6 @@
-using Shifts.Model;
+using Shifts.Api.Model;
 
-namespace Shifts.Repository;
+namespace Shifts.Api.Repository;
 
 public interface IDataRepository
 {

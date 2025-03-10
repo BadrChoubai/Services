@@ -1,7 +1,7 @@
-using Shifts.Extensions;
-using Shifts.Service;
+using Shifts.Api.Extensions;
+using Shifts.Api.Service;
 
-namespace Shifts;
+namespace Shifts.Api;
 
 internal static class Endpoints
 {

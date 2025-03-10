@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Shifts.Model;
+namespace Shifts.Api.Model;
 
 public class Location
 {

@@ -1,7 +1,7 @@
-using Shifts.Model;
-using Shifts.Repository;
+using Shifts.Api.Model;
+using Shifts.Api.Repository;
 
-namespace Shifts
+namespace Shifts.Api
 {
     public class DataSeeder(ShiftsDbContext context)
     {

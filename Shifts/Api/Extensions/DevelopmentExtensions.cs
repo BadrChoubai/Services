@@ -1,4 +1,4 @@
-namespace Shifts.Extensions;
+namespace Shifts.Api.Extensions;
 
 public static class DevelopmentExtensions
 {

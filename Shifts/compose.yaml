@@ -1,0 +1,8 @@
+services:
+  api:
+    image: shifts-api
+    ports:
+      - "8086:8080"
+    build:
+      context: .
+      dockerfile: Shifts/Dockerfile

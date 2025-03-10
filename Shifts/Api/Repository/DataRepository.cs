@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 
-using Shifts.Model;
+using Shifts.Api.Model;
 
-
-namespace Shifts.Repository
+namespace Shifts.Api.Repository
 {
     public class DataRepository(ShiftsDbContext dbContext) : IDataRepository
     {

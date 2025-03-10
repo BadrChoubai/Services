@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Shifts.Model;
+namespace Shifts.Api.Model;
 
 public class Facility
 {

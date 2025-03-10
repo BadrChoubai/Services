@@ -1,11 +1,9 @@
 using Asp.Versioning;
 
-using Microsoft.EntityFrameworkCore;
+using Shifts.Api.Repository;
+using Shifts.Api.Service;
 
-using Shifts.Repository;
-using Shifts.Service;
-
-namespace Shifts.Extensions;
+namespace Shifts.Api.Extensions;
 
 /// <summary>
 /// class <c>AddApplicationServices</c> configures core application dependencies

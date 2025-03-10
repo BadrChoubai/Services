@@ -1,7 +1,7 @@
-using Shifts.Model;
-using Shifts.Repository;
+using Shifts.Api.Model;
+using Shifts.Api.Repository;
 
-namespace Shifts.Service;
+namespace Shifts.Api.Service;
 
 public class ShiftsService : IApiService
 {

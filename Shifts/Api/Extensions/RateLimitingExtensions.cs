@@ -4,11 +4,7 @@ using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Options;
 
-using Shifts.Service;
-
-using SQLitePCL;
-
-namespace Shifts.Extensions
+namespace Shifts.Api.Extensions
 {
     public static class RateLimitingExtensions
     {
