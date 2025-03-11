@@ -1,6 +1,10 @@
 {
   "author": "Badr Choubai",
   "description": "TypeScript API Demo",
+  "engines": {
+    "node": ">=22.14.0",
+    "npm": "~10"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.2",
