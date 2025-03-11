@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/badrchoubai/Services/Employees/api"
+	"github.com/badrchoubai/Services/Employees/cmd/api/server"
 	"github.com/badrchoubai/Services/Employees/pkg/logging"
 	"io"
 	"log"
@@ -27,12 +27,7 @@ func run(ctx context.Context, stdout io.Writer, getenv func(string) string) erro
 	var wg sync.WaitGroup
 
 	logger := logging.NewLogger(stdout)
-	handler := api.NewServer(logger)
-
-	srv := &http.Server{
-		Addr:    ":" + getenv("PORT"),
-		Handler: handler,
-	}
+	srv := server.NewServer(logger, getenv)
 
 	shutdownError := make(chan error)
 
@@ -56,8 +51,6 @@ func run(ctx context.Context, stdout io.Writer, getenv func(string) string) erro
 		wg.Wait()
 		shutdownError <- nil
 	}()
-
-	logger.Info(fmt.Sprintf("http://localhost:%s", getenv("PORT")))
 
 	err := srv.ListenAndServe()
 	if !errors.Is(err, http.ErrServerClosed) {
