@@ -4,12 +4,14 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "uuid": "^11.0.5"
+    "uuid": "^11.0.5",
+    "winston": "^3.17.0"
   },
   "name": "typescript-api-demo",
   "scripts": {
     "serve": "node dist/index.js",
     "build": "tsc",
+    "database:seed": "node --no-warnings --loader ts-node/esm src/database/seedDb.ts",
     "dev": "npm run develop",
     "develop": "concurrently \"npm run develop:watch\" \"npm run develop:serve\"",
     "develop:watch": "tsc --watch",
@@ -31,6 +33,7 @@
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "globals": "^15.15.0",
+    "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.0"

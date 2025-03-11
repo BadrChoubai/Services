@@ -1,4 +1,4 @@
-import router from "../api/index.js";
+import facilities from "../router/facilities.js";
 import cors from "cors";
 import express, { Application } from "express";
 import { heartbeat } from "../middleware/index.js";
@@ -13,5 +13,6 @@ export default async (app: Application): Promise<void> => {
   app.use(express.json()); // JSON Body Parser
 
   app.use("/health", heartbeat);
-  app.use("/", router);
+
+  app.use("/facilities", facilities);
 };
