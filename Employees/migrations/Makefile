@@ -6,10 +6,6 @@ db/info: # @HELP prints value of DB_CONNECTION_STRING
 db/info:
 	@echo ${DB_CONNECTION_STRING}
 
-db/version: # @HELP prints current migration status
-db/version:
-	migrate -database ${DB_CONNECTION_STRING} -verbose version
-
 db/connect: # @HELP connect to locally running database
 db/connect:
 	sqlite3 ${DB_CONNECTION_STRING}

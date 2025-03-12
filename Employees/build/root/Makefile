@@ -73,10 +73,6 @@ db/info: # @HELP prints value of DB_CONNECTION_STRING
 db/info:
 	$(MAKE) -C ./migrations db/info
 
-db/version: # @HELP prints current migration status
-db/version:
-	$(MAKE) -C ./migrations db/version
-
 db/connect: # @HELP connect to locally running database
 db/connect:
 	$(MAKE) -C ./migrations db/connect
