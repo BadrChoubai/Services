@@ -1,7 +1,6 @@
 package logging
 
 import (
-	"fmt"
 	"io"
 	"log/slog"
 )
@@ -34,7 +33,6 @@ func (l *Logger) Info(msg string, args ...any) {
 }
 
 func (l *Logger) Error(whatWasHappening string, args ...any) {
-	fmt.Println(args)
 	l.log.Error(whatWasHappening, args...)
 }
 

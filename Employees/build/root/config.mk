@@ -10,6 +10,7 @@ TAG := $(VERSION)__$(OS)_$(ARCH)
 
 # Where to push the docker images.
 REGISTRY ?= localhost:5000
+DB_CONNECTION_STRING ?= "sqlite3://.db/Employees.db"
 
 BIN_EXTENSION :=
 ifeq ($(OS), windows)

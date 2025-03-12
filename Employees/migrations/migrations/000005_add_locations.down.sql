@@ -1,0 +1,2 @@
+DELETE FROM locations
+WHERE id = 'f103279-fe1c-4d68-8043-09ad13f13207';

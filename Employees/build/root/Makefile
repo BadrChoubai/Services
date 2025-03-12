@@ -4,6 +4,10 @@ include .env
 BIN ?= api
 BIN_OUT := .dist/$(OS)_$(ARCH)
 
+run: # @HELP select and run a single application
+run:
+	$(PWD)/build/scripts/run-locally.sh $(BIN)
+
 build: # @HELP for each BIN, build binary and place into /bin/$(OS)_$(ARCH)
 build: lint $(BIN)
 
@@ -60,9 +64,33 @@ lint: # @HELP runs golangci-lint linters
 		fi; \
 	fi
 
-run: # @HELP select and run a single application
-run:
-	$(PWD)/build/scripts/run-locally.sh $(BIN)
+####################################################################################################
+# Database Tasks
+# https://github.com/golang-migrate/migrate/tree/master/cmd/migrate#migrate-cli
+####################################################################################################
+
+db/info: # @HELP prints value of DB_CONNECTION_STRING
+db/info:
+	$(MAKE) -C ./migrations db/info
+
+db/version: # @HELP prints current migration status
+db/version:
+	$(MAKE) -C ./migrations db/version
+
+db/connect: # @HELP connect to locally running database
+db/connect:
+	$(MAKE) -C ./migrations db/connect
+
+db/migrations/up: # @HELP run migrations to create database tables
+db/migrations/up:
+	$(MAKE) -C ./migrations db/migrations/up
+
+db/migrations/down: # @HELP run migrations to teardown database tables
+db/migrations/down:
+	$(MAKE) -C ./migrations db/migrations/down
+
+db/migrations/refresh: # @HELP refresh database tables
+db/migrations/refresh: db/migrations/down db/migrations/up
 
 SHELL := /usr/bin/env bash -o errexit -o pipefail
 .DEFAULT_GOAL = build

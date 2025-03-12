@@ -1,14 +1,35 @@
 package handlers
 
 import (
-	"database/sql"
+	"github.com/badrchoubai/Services/Employees/internal/data"
+	"github.com/badrchoubai/Services/Employees/internal/repository"
+	"github.com/badrchoubai/Services/Employees/pkg/encoding"
 	"net/http"
 )
 
-func GetEmployees(db *sql.DB) http.Handler {
+func GetEmployees(employeesRepository *repository.EmployeesRepository) http.Handler {
+	type ListResponse struct {
+		Employees []*data.Employee `json:"employees"`
+		Count     int              `json:"count"`
+	}
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(`{"data": []}`))
+		employees, err := employeesRepository.GetAll()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		response := &ListResponse{
+			Employees: employees,
+			Count:     len(employees),
+		}
+
+		ec := encoding.NewEncoderDecoder()
+
+		err = ec.EncodeResponse(w, http.StatusOK, response)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	})
 }

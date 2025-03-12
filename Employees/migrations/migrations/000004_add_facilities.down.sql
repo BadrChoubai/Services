@@ -1,0 +1,2 @@
+DELETE FROM facilities
+WHERE id = '1e95757d-066d-41a6-b5d2-5e34b71d6051';

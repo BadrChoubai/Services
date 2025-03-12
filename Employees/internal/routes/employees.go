@@ -3,23 +3,16 @@ package routes
 import (
 	"database/sql"
 	"github.com/badrchoubai/Services/Employees/internal/handlers"
+	"github.com/badrchoubai/Services/Employees/internal/repository"
 	"net/http"
 )
 
-type EmployeesRouter struct {
-	Handler *http.ServeMux
-	router  http.Handler
-	db      *sql.DB
+func NewEmployeesRouter(mux *http.ServeMux, db *sql.DB) {
+	employeesRepository := repository.NewEmployeesRepository(db)
+
+	addRoutes(mux, employeesRepository)
 }
 
-func NewEmployeesRouter(mux *http.ServeMux, db *sql.DB) *EmployeesRouter {
-	addRoutes(mux, db)
-
-	return &EmployeesRouter{
-		Handler: mux,
-	}
-}
-
-func addRoutes(mux *http.ServeMux, database *sql.DB) {
-	mux.Handle("/employees", handlers.GetEmployees(database))
+func addRoutes(mux *http.ServeMux, employeesRepository *repository.EmployeesRepository) {
+	mux.Handle("/employees", handlers.GetEmployees(employeesRepository))
 }
