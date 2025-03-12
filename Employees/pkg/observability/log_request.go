@@ -1,7 +1,7 @@
-package middleware
+package observability
 
 import (
-	"github.com/badrchoubai/Services/Employees/pkg/logging"
+	"github.com/badrchoubai/Services/Employees/pkg/observability/logging"
 	"net/http"
 )
 
