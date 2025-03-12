@@ -1,0 +1,8 @@
+@Employees_HostAddress = http://localhost:8084
+
+GET {{Employees_HostAddress}}/employees/
+Accept: application/json
+
+###
+
+
