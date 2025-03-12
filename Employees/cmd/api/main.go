@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/badrchoubai/Services/Employees/cmd/api/server"
-	"github.com/badrchoubai/Services/Employees/pkg/logging"
+	"github.com/badrchoubai/Services/Employees/pkg/observability/logging"
 	"io"
 	"log"
 	"net/http"
@@ -27,7 +27,10 @@ func run(ctx context.Context, stdout io.Writer, getenv func(string) string) erro
 	var wg sync.WaitGroup
 
 	logger := logging.NewLogger(stdout)
-	srv := server.NewServer(logger, getenv)
+	srv, err := server.NewServer(logger, getenv)
+	if err != nil {
+		return err
+	}
 
 	shutdownError := make(chan error)
 
@@ -52,7 +55,7 @@ func run(ctx context.Context, stdout io.Writer, getenv func(string) string) erro
 		shutdownError <- nil
 	}()
 
-	err := srv.ListenAndServe()
+	err = srv.ListenAndServe()
 	if !errors.Is(err, http.ErrServerClosed) {
 		return err
 	}

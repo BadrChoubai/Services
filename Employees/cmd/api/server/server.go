@@ -2,9 +2,12 @@ package server
 
 import (
 	"context"
+	"database/sql"
 	"github.com/badrchoubai/Services/Employees/internal/routes"
-	"github.com/badrchoubai/Services/Employees/pkg/logging"
+	"github.com/badrchoubai/Services/Employees/pkg/database"
 	"github.com/badrchoubai/Services/Employees/pkg/middleware"
+	"github.com/badrchoubai/Services/Employees/pkg/observability"
+	"github.com/badrchoubai/Services/Employees/pkg/observability/logging"
 	"net/http"
 )
 
@@ -20,33 +23,41 @@ type Server struct {
 	logger     *logging.Logger
 }
 
-func NewServer(logger *logging.Logger, getEnv func(string) string) *Server {
-	port := getEnv("HTTP_PORT")
+func NewServer(logger *logging.Logger, getEnv func(string) string) (*Server, error) {
+	db, err := database.Open()
+	if err != nil {
+		logger.Error(err.Error())
+		return nil, err
+	}
 
+	handler := setupHandler(logger, db)
+
+	port := getEnv("HTTP_PORT")
 	srv := &Server{
-		//HttpServer: createStdLibHTTPServer(port),
 		HttpServer: &http.Server{
 			Addr:    ":" + port,
-			Handler: setupHandler(logger),
+			Handler: handler,
 		},
 		logger: logger,
 	}
 
-	return srv
+	return srv, nil
 }
 
-func setupHandler(logger *logging.Logger) http.Handler {
+func setupHandler(logger *logging.Logger, db *sql.DB) http.Handler {
 	mux := http.NewServeMux()
-	addRoutes(mux)
+	addRoutes(mux, db)
 
 	var handler http.Handler = mux
 	handler = middleware.Heartbeat(handler, "/health")
-	handler = middleware.LogRequest(handler, logger)
+	handler = observability.LogRequest(handler, logger)
 
 	return handler
 }
 
-func addRoutes(mux *http.ServeMux) {
+func addRoutes(mux *http.ServeMux, database *sql.DB) {
+	routes.NewEmployeesRouter(mux, database)
+
 	mux.Handle("/", routes.RootHandler())
 }
 
