@@ -1,4 +1,5 @@
 .dist/
+.idea
 .Dockerfile*
 .Image*
 .db

@@ -45,7 +45,13 @@ docker: $(DOCKERFILE) $(DOCKERIMAGE)
 		.
 	touch $@
 
-lint: # @HELP runs golangci-lint linters
+lint: lint-go lint-docs
+
+lint-docs: # @HELP runs golangci-lint linters
+	npx prettier --write "**/*.{md,json,yaml}"
+
+
+lint-go: # @HELP runs golangci-lint linters
 	@if golangci-lint run; then \
 		echo "golangci-lint ran successfully"; \
 	else \
