@@ -15,4 +15,5 @@ func NewEmployeesRouter(mux *http.ServeMux, db *sql.DB) {
 
 func addRoutes(mux *http.ServeMux, employeesRepository *repository.EmployeesRepository) {
 	mux.Handle("/employees", handlers.GetEmployees(employeesRepository))
+	mux.Handle("/employees/", handlers.GetEmployees(employeesRepository))
 }
