@@ -1,7 +1,7 @@
 include .env
 
 all: # @HELP: builds the docker image for our application
-all:
+all: lint format
 	@echo "Building ${DOCKER_IMAGE}"
 	docker build \
 	--progress=plain \
@@ -13,6 +13,10 @@ run: # @HELP run the application locally and watch for changes
 run:
 	fastapi run --reload app/main.py
 
+test: # @HELP run any tests
+test:
+	@echo "No tests to run"
+
 lint: # @HELP lints project files and scripts
 lint:
 	sh ./scripts/lint.sh
@@ -21,7 +25,7 @@ format: # @HELP formats project files and scripts
 	sh ./scripts/format.sh
 
 activate: # @HELP install dependencies and activate environment
-activate: .venv
+activate:
 	uv sync
 	source .venv/bin/activate
 
@@ -35,6 +39,7 @@ help-vars:
 		@grep -E '^# *@[A-Z0-9_]+: ' $(MAKEFILE_LIST) \
 			| sed -E 's/^# *@([A-Z0-9_]+): (.*)/  \1: \2/'
 
+help: # @HELP prints this help message
 help: help-vars
 	@echo "TARGETS:"
 	@grep -E '^.*: *# *@HELP' $(MAKEFILE_LIST)     \

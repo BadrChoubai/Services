@@ -1,5 +1,7 @@
 # Database Makefile Commands
 
+> Migration tasks must be run at the root of the project.
+
 This repository contains a `Makefile` with useful commands for managing a SQLite
 database, including connecting to the database, running migrations, and
 refreshing tables.
@@ -10,6 +12,7 @@ Ensure you have the following installed on your system:
 
 - `sqlite3`
 - `migrate` (Database migration tool)
+- DataGrip or similar Visual Database Management tool
 
 ### Installing `migrate`
 

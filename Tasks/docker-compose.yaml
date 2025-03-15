@@ -1,11 +1,11 @@
 services:
 
   server:
-    image: tasks-api
+    image: localhost:5000/tasks-api
     ports:
-      - "8080:8000"
-    environment:
-      - PROJECT_NAME=Tasks API
+      - "8000:8000"
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: Dockerfile

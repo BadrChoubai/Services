@@ -40,7 +40,7 @@ To remove build artifacts:
 make clean
 ```
 
-## Linting
+### Linting
 
 To check code quality using `golangci-lint`:
 
@@ -49,6 +49,12 @@ make lint
 ```
 
 If linting fails, you will be prompted to retry with the `--fix` flag.
+
+## Database Migrations
+
+Database migrations are driven by tasks in `/migrations/Makefile`.
+
+[Documentation](./migrations/README.md)
 
 ## Docker
 

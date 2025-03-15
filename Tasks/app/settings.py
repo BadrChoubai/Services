@@ -6,4 +6,4 @@ class Settings(BaseSettings):
   DOCS_URL: str = "/docs"
 
 
-settings = Settings()
+settings = Settings() # type: ignore
