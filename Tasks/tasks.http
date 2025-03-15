@@ -1,0 +1,13 @@
+# Test your FastAPI endpoints
+
+POST http://127.0.0.1:8000/tasks/assign
+Content-Type: application/json
+Accept-Language: en-US,en;q=0.5
+
+{
+  "employeeId": "c04ab9a0-e398-471d-8cfe-95317ccf0a20",
+  "taskDescription": "Container Builder Lane A",
+  "facilityId": "1e95757d-066d-41a6-b5d2-5e34b71d6051"
+}
+
+###
