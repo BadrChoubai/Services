@@ -36,20 +36,20 @@ clean:
 
 help-vars:
 		@echo "VARIABLES:"
-		@grep -hE '^### *[A-Z0-9_]+: ' $(MAKEFILE_LIST) \
-			| sed -E 's/^### *([A-Z0-9_]+): (.*)/  \1: \2/'
+		@grep -hE '^# *[A-Z0-9_]+: ' $(MAKEFILE_LIST) \
+			| sed -E 's/^# *([A-Z0-9_]+): (.*)/  \1: \2/'
 		@echo
 
 help: # @HELP prints this help message
 help: help-vars
-	@echo "TARGETS:"
+	@echo "TARGETS"
 	@grep -hE '^.*: *# *@HELP' $(MAKEFILE_LIST)     \
 	    | awk '                                   \
 	        BEGIN {FS = ": *# *@HELP"};           \
 	        { printf "  %-30s %s\n", $$1, $$2 };  \
 	    '
 
-### REGISTRY: Where should Docker images be pushed once they're built?
+# REGISTRY: Where should Docker images be pushed once they're built?
 REGISTRY ?= localhost:5000
 
 SHELL := /usr/bin/env bash -o errexit -o pipefail -o nounset
