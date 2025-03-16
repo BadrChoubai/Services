@@ -1,22 +1,14 @@
   services:
-    backend:
+    server:
       restart: "no"
       ports:
-        - "8000:8000"
+        - "8080:8080"
       build:
         context: .
-      # command: sleep infinity  # Infinite loop to keep container alive doing nothing
       command:
         - fastapi
         - run
+        - --port
+        - "8080"
         - --reload
         - "app/main.py"
-      develop:
-        watch:
-          - path: ./app
-            action: sync
-            target: /app
-            ignore:
-              - .venv
-          - path: pyproject.toml
-            action: rebuild
