@@ -1,0 +1,18 @@
+services:
+  server:
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    develop:
+      watch:
+        - path: ./app
+          action: sync
+          target: /app
+          ignore:
+            - .venv
+        - path: pyproject.toml
+          action: rebuild
