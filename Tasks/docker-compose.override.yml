@@ -12,3 +12,12 @@
         - "8080"
         - --reload
         - "app/main.py"
+      develop:
+        watch:
+          - path: ./app
+            action: sync
+            target: /app
+            ignore:
+              - .venv
+          - path: pyproject.toml
+            action: rebuild
