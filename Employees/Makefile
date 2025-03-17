@@ -1,7 +1,7 @@
 include .env
 
-all: # @HELP: builds the docker image for our application
-all: lint format
+all: # @HELP builds the docker image for our application
+all:
 	@echo "Building ${DOCKER_IMAGE}"
 	docker build \
 	--progress=plain \
@@ -11,18 +11,15 @@ all: lint format
 
 run: # @HELP run the application locally and watch for changes
 run:
-	fastapi run --reload app/main.py
+	air --build.cmd "go build -o .dist/api cmd/api/main.go" --build.bin ".dist/api"
 
 test: # @HELP run any tests
 test:
-	@echo "No tests to run"
+	go test ./...
 
 lint: # @HELP lints project files and scripts
 lint:
-	sh ./scripts/lint.sh
-
-format: # @HELP formats project files and scripts
-	sh ./scripts/format.sh
+	sh ./build/scripts/lint.sh
 
 activate: # @HELP install dependencies and activate environment
 activate:
@@ -36,22 +33,23 @@ clean:
 
 help-vars:
 	@echo "VARIABLES:"
+	@grep -hE '^# *[A-Z0-9_]+: ' $(MAKEFILE_LIST) \
+		| sed -E 's/^# *([A-Z0-9_]+): (.*)/  \1: \2/'
 
-
-
-help: # @HELP prints this help message
-help: help-vars
-	@echo "TARGETS:"
-	@grep -E '^.*: *# *@HELP' $(MAKEFILE_LIST)     \
+help-targets:
+	@printf "\nTARGETS\n"
+	@grep -hE '^.*: *# *@HELP' $(MAKEFILE_LIST)     \
 	    | awk '                                   \
 	        BEGIN {FS = ": *# *@HELP"};           \
 	        { printf "  %-30s %s\n", $$1, $$2 };  \
 	    '
 
+help: # @HELP prints help messages
+help: help-vars help-targets
 
-#VAR: Where should Docker images be pushed once they're built?
+# REGISTRY: Where should Docker images be pushed once they're built?
 REGISTRY ?= localhost:5000
 
 SHELL := /usr/bin/env bash -o errexit -o pipefail -o nounset
 .DEFAULT_GOAL = all
-.PHONY: all activate clean format help lint test
+.PHONY: all activate clean format help lint run test

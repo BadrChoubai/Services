@@ -8,6 +8,7 @@ building, linting, containerizing, and running the application.
 Ensure you have the following installed:
 
 - [Go](https://go.dev/) (Latest stable version recommended)
+- [Air](https://github.com/air-verse/air?tab=readme-ov-file) (For live-reloading development serve)
 - [Docker](https://www.docker.com/) (For containerized builds)
 - [golangci-lint](https://golangci-lint.run/) (For linting)
 - [Make](https://www.gnu.org/software/make/) (For build automation)
