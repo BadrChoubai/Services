@@ -17,13 +17,11 @@ Ensure you have the following installed:
 
 ### Build the Project
 
-To compile the Go application:
+Build our application's docker image
 
 ```sh
 make build
 ```
-
-This builds the binary and places it into `.dist/$(OS)_$(ARCH)/api`.
 
 ### Run the Application
 
@@ -56,14 +54,6 @@ If linting fails, you will be prompted to retry with the `--fix` flag.
 Database migrations are driven by tasks in `/migrations/Makefile`.
 
 [Documentation](./migrations/README.md)
-
-## Docker
-
-To build and manage Docker images:
-
-```sh
-make docker
-```
 
 This will generate a Dockerfile and build the corresponding image.
 

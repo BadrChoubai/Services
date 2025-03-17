@@ -1,4 +1,5 @@
 include .env
+include migrations/Makefile
 
 all: # @HELP builds the docker image for our application
 all:
@@ -9,9 +10,9 @@ all:
 	-f Dockerfile \
 	.
 
-run: # @HELP run the application locally and watch for changes
+run: # @HELP run the application locally, watching for changes locally (requires air: https://github.com/air-verse/air)
 run:
-	air --build.cmd "go build -o .dist/api cmd/api/main.go" --build.bin ".dist/api"
+	air
 
 test: # @HELP run any tests
 test:
@@ -26,10 +27,9 @@ activate:
 	uv sync
 	source .venv/bin/activate
 
-clean: # @HELP cleans temporary files and build artifacts
+clean: # @HELP cleans temporary files and build artifacts created during development
 clean:
-	rm -rf __pycache__
-	rm -rf $(VENV)
+	rm -rf .dist tmp
 
 help-vars:
 	@echo "VARIABLES:"
