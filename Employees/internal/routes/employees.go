@@ -2,9 +2,10 @@ package routes
 
 import (
 	"database/sql"
+	"net/http"
+
 	"github.com/badrchoubai/Services/Employees/internal/handlers"
 	"github.com/badrchoubai/Services/Employees/internal/repository"
-	"net/http"
 )
 
 func NewEmployeesRouter(mux *http.ServeMux, db *sql.DB) {

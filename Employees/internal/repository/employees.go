@@ -3,9 +3,10 @@ package repository
 import (
 	"context"
 	"database/sql"
-	"github.com/badrchoubai/Services/Employees/internal/data"
 	"github.com/google/uuid"
 	"time"
+
+	"github.com/badrchoubai/Services/Employees/internal/data"
 )
 
 var _ Repository = (*EmployeesRepository)(nil)

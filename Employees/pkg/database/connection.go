@@ -3,11 +3,11 @@ package database
 import (
 	"context"
 	"database/sql"
-	"github.com/badrchoubai/Services/Employees/pkg/observability/logging"
+	_ "github.com/mattn/go-sqlite3"
 	"os"
 	"time"
 
-	_ "github.com/mattn/go-sqlite3"
+	"github.com/badrchoubai/Services/Employees/pkg/observability/logging"
 )
 
 const (

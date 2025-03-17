@@ -3,12 +3,13 @@ package server
 import (
 	"context"
 	"database/sql"
+	"net/http"
+
 	"github.com/badrchoubai/Services/Employees/internal/routes"
 	"github.com/badrchoubai/Services/Employees/pkg/database"
 	"github.com/badrchoubai/Services/Employees/pkg/middleware"
 	"github.com/badrchoubai/Services/Employees/pkg/observability"
 	"github.com/badrchoubai/Services/Employees/pkg/observability/logging"
-	"net/http"
 )
 
 var _ HTTPServer = (*Server)(nil)

@@ -1,10 +1,11 @@
 package handlers
 
 import (
+	"net/http"
+
 	"github.com/badrchoubai/Services/Employees/internal/data"
 	"github.com/badrchoubai/Services/Employees/internal/repository"
 	"github.com/badrchoubai/Services/Employees/pkg/encoding"
-	"net/http"
 )
 
 func GetEmployees(employeesRepository *repository.EmployeesRepository) http.Handler {

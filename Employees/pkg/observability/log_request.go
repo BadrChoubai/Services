@@ -1,8 +1,9 @@
 package observability
 
 import (
-	"github.com/badrchoubai/Services/Employees/pkg/observability/logging"
 	"net/http"
+
+	"github.com/badrchoubai/Services/Employees/pkg/observability/logging"
 )
 
 func LogRequest(handler http.Handler, logger *logging.Logger) http.Handler {

@@ -4,8 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/badrchoubai/Services/Employees/cmd/api/server"
-	"github.com/badrchoubai/Services/Employees/pkg/observability/logging"
 	"io"
 	"log"
 	"net/http"
@@ -14,6 +12,9 @@ import (
 	"sync"
 	"syscall"
 	"time"
+
+	"github.com/badrchoubai/Services/Employees/cmd/api/server"
+	"github.com/badrchoubai/Services/Employees/pkg/observability/logging"
 )
 
 func main() {
