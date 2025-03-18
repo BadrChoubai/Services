@@ -25,9 +25,11 @@ type Server struct {
 }
 
 func NewServer(logger *logging.Logger, getEnv func(string) string) (*Server, error) {
-	db, err := database.Open()
+	connStr := getEnv("DB_CONNECTION_STRING")
+
+	db, err := database.Open(connStr)
 	if err != nil {
-		logger.Error(err.Error())
+		logger.Warn(err.Error())
 		return nil, err
 	}
 

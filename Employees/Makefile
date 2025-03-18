@@ -3,16 +3,15 @@ include migrations/Makefile
 
 all: # @HELP builds the docker image for our application
 all:
-	@echo "Building ${DOCKER_IMAGE}"
 	docker build \
 	--progress=plain \
+	--build-arg OS=$(OS) --build-arg ARCH=$(ARCH) \
 	-t $(REGISTRY)/$(DOCKER_IMAGE) \
-	-f Dockerfile \
-	.
+	-f Dockerfile .
 
-run: # @HELP run the application locally, watching for changes locally (requires air: https://github.com/air-verse/air)
-run:
-	air
+run: # @HELP run the application locally using air
+run: all
+	DOCKER_IMAGE=$(DOCKER_IMAGE) REGISTRY=$(REGISTRY) docker compose up
 
 test: # @HELP run any tests
 test:
@@ -22,14 +21,9 @@ lint: # @HELP lints project files and scripts
 lint:
 	sh ./build/scripts/lint.sh
 
-activate: # @HELP install dependencies and activate environment
-activate:
-	uv sync
-	source .venv/bin/activate
-
 clean: # @HELP cleans temporary files and build artifacts created during development
 clean:
-	rm -rf .dist tmp
+	docker compose down
 
 help-vars:
 	@echo "VARIABLES:"
@@ -49,6 +43,15 @@ help: help-vars help-targets
 
 # REGISTRY: Where should Docker images be pushed once they're built?
 REGISTRY ?= localhost:5000
+# OS: Used internally. Users should pass GOOS and/or GOARCH.
+OS := $(if $(GOOS),$(GOOS),$(shell GOTOOLCHAIN=local go env GOOS))
+# ARCH: Used internally. Users should pass GOOS and/or GOARCH.
+ARCH := $(if $(GOARCH),$(GOARCH),$(shell GOTOOLCHAIN=local go env GOARCH))
+
+GO_VERSION := 1.23
+CONTAINER_IMAGE := golang:$(GO_VERSION)-alpine
+VERSION ?= 1.0
+TAG := $(VERSION)__$(OS)_$(ARCH)
 
 SHELL := /usr/bin/env bash -o errexit -o pipefail -o nounset
 .DEFAULT_GOAL = all

@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -19,8 +18,9 @@ import (
 
 func main() {
 	ctx := context.Background()
+
 	if err := run(ctx, os.Stdout, os.Getenv); err != nil {
-		log.Fatalf("%+v\n", err)
+		os.Exit(1)
 	}
 }
 

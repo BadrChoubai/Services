@@ -17,9 +17,10 @@ const (
 	maxIdleTime  = 20
 )
 
-func Open() (*sql.DB, error) {
+func Open(connectionStr string) (*sql.DB, error) {
 	logger := logging.NewLogger(os.Stdout)
-	db, err := sql.Open("sqlite3", ".db/Employees.db")
+	db, err := sql.Open("sqlite3", connectionStr)
+
 	if err != nil {
 		logger.Error("opening database", err)
 		return nil, err
