@@ -1,14 +1,14 @@
 include .env
 
 all: # @HELP builds the docker image for our application
-all: format lint
+all:
 	docker build \
 	--progress=plain \
 	-t $(REGISTRY)/$(DOCKER_IMAGE) \
 	-f Dockerfile .
 
 run: # @HELP run the application image locally with docker compose
-run: all
+run:
 	DOCKER_IMAGE=$(DOCKER_IMAGE) REGISTRY=$(REGISTRY) docker compose up
 
 test: # @HELP run any tests
@@ -20,32 +20,28 @@ lint:
 	sh ./scripts/lint.sh
 
 format: # @HELP formats project files and scripts
+format:
 	sh ./scripts/format.sh
 
-activate: # @HELP install dependencies and activate environment
-activate:
+sync: # @HELP install dependencies
+sync:
 	uv sync
-	source .venv/bin/activate
+	@echo "To activate the environment, run: source .venv/bin/activate"
 
 clean: # @HELP cleans temporary files and build artifacts
 clean:
 	DOCKER_IMAGE=$(DOCKER_IMAGE) REGISTRY=$(REGISTRY) docker compose down
+	docker image rm $(REGISTRY)/$(DOCKER_IMAGE)
 	rm -rf __pycache__
 	rm -rf $(VENV)
 
-help-vars:
-		@echo "VARIABLES:"
-		@grep -hE '^# *[A-Z0-9_]+: ' $(MAKEFILE_LIST) \
-			| sed -E 's/^# *([A-Z0-9_]+): (.*)/  \1: \2/'
-		@echo
-
 help: # @HELP prints this help message
-help: help-vars
+help:
 	@echo "TARGETS"
 	@grep -hE '^.*: *# *@HELP' $(MAKEFILE_LIST)     \
 	    | awk '                                   \
 	        BEGIN {FS = ": *# *@HELP"};           \
-	        { printf "  %-30s %s\n", $$1, $$2 };  \
+	        { printf "  %-20s %-30s\n", $$1, $$2 };  \
 	    '
 
 # REGISTRY: Where should Docker images be pushed once they're built?
@@ -53,4 +49,4 @@ REGISTRY ?= localhost:5000
 
 SHELL := /usr/bin/env bash -o errexit -o pipefail -o nounset
 .DEFAULT_GOAL = all
-.PHONY: all activate clean format help lint test
+.PHONY: activate all clean format help lint run sync test
