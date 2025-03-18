@@ -9,7 +9,7 @@ all:
 	-t $(REGISTRY)/$(DOCKER_IMAGE) \
 	-f Dockerfile .
 
-run: # @HELP run the application locally using air
+run: # @HELP run the application image locally with docker compose
 run: all
 	DOCKER_IMAGE=$(DOCKER_IMAGE) REGISTRY=$(REGISTRY) docker compose up
 
