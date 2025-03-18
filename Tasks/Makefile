@@ -1,17 +1,15 @@
 include .env
 
 all: # @HELP builds the docker image for our application
-all: lint format
-	@echo "Building ${DOCKER_IMAGE}"
+all: format lint
 	docker build \
 	--progress=plain \
 	-t $(REGISTRY)/$(DOCKER_IMAGE) \
-	-f Dockerfile \
-	.
+	-f Dockerfile .
 
-run: # @HELP run the application locally and watch for changes
-run:
-	fastapi run --reload app/main.py
+run: # @HELP run the application image locally with docker compose
+run: all
+	DOCKER_IMAGE=$(DOCKER_IMAGE) REGISTRY=$(REGISTRY) docker compose up
 
 test: # @HELP run any tests
 test:
@@ -31,6 +29,7 @@ activate:
 
 clean: # @HELP cleans temporary files and build artifacts
 clean:
+	DOCKER_IMAGE=$(DOCKER_IMAGE) REGISTRY=$(REGISTRY) docker compose down
 	rm -rf __pycache__
 	rm -rf $(VENV)
 
